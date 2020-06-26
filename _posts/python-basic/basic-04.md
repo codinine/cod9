@@ -1,0 +1,125 @@
+---
+title: "[python-기초]04.숫자 연산자"
+date: 2019-03-26 14:05:18
+categories:
+- Python
+- 기초
+---
+
+#### [](#파이썬-숫자 "파이썬 숫자")파이썬 숫자
+
+#### [](#표현법-숫자를-출력할땐-따옴표를-사용하지-않습니다 "표현법 - 숫자를 출력할땐 따옴표를 사용하지 않습니다.")`표현법` - 숫자를 출력할땐 따옴표를 사용하지 않습니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+print(315)  
+print(17.345)  
+{% endcodeblock %}
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+315  
+17.345
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#자료형 "자료형")`자료형`
+
+*   숫자는 `int(정수형)`과 `float(실수형)`이 있습니다.
+*   쉽게 말해 소수점이 없다면 정수형 있다면 실수형입니다.
+
+##### [](#자료형-확인-방법-파이썬의-자료형은-type-함수를-통해-확인합니다 "자료형 확인 방법 - 파이썬의 자료형은 type() 함수를 통해 확인합니다.")`자료형 확인 방법` - 파이썬의 자료형은 type() 함수를 통해 확인합니다.
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+print(type("안녕"))  
+print(type(315))  
+print(type(17.345))  
+print(type("17.34"))  
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+<class 'str'>  
+<class 'int'>  
+<class 'float'>  
+<class 'str'>  
+{% endcodeblock %}
+
+
+
+* * *
+
+#### [](#숫자-연산자 "숫자 연산자")`숫자 연산자`
+
+|연산자|의미|
+|:--------:|:--------:|
+|+|더하기|
+|-|빼기|
+|\*|곱하기|
+|/|나누기|
+|%|나머지|
+|\*\*|제곱|
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+print(9+2)  
+print(9-2)  
+print(9*2)  
+print(9/2)  
+print(9%2)  
+print(9**2)  
+{% endcodeblock %}
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+11  
+7  
+18  
+4.5  
+1  
+81  
+{% endcodeblock %}
+
+쉽죠?  
+여러개의 연산자를 사용할땐 `괄호( )`를 통해 우선순위를 결정할 수 있습니다.  
+수학하고 똑같네요.
+
+* * *
+
+#### [](#TypeError "TypeError")TypeError
+
+아래와 같이 문자와 숫자는 자료형이 다르기 때문에 연산이 불가능하여  
+type error가 발생합니다.
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+print("안녕하세요" + 273)  
+{% endcodeblock %}
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+TypeError: must be str, not int  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+포스팅 하나당 길이가 길지 않아서 가볍게 쭉쭉 보시기 좋을 것 같네요.  
+다음에는 변수, 형변환 등을 알아보도록 하겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

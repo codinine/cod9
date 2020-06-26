@@ -1,0 +1,106 @@
+---
+title: "[python-기초]03.문자열 연산자"
+date: 2019-03-26 14:04:18
+categories:
+- Python
+- 기초
+---
+
+#### 파이썬 문자열 연산자
+
+#### `연결 연산자` - 파이썬의 문자열은 `+(플러스)` 기호로 연결합니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+print("안녕하세요." + " 파자마 코딩입니다")  
+{% endcodeblock %}
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+안녕하세요. 파자마 코딩입니다   
+{% endcodeblock %}
+
+* * *
+
+#### `반복 연산자` - `*(별표)` 기호를 통해 문자열을 반복할 수 있습니다.
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+print("안녕하세요." \* 3)
+{% endcodeblock %}
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+안녕하세요.안녕하세요.안녕하세요.    
+{% endcodeblock %}
+
+* * *
+
+#### `선택 연산자` - `'문자열'[숫자]` 통해 특정 문자열을 선택합니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+print("파자마코딩입니다"\[0\])  
+print("파자마코딩입니다"\[5\])  
+print("파자마코딩입니다"\[\-1\])  
+{% endcodeblock %}
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+파  
+입  
+다   
+{% endcodeblock %}
+
+* * *
+
+#### `선택 연산자` - `'문자열'[숫자:숫자]` 범위를 선택할 수도 있습니다.
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+print("파자마코딩입니다"\[0:3\])  
+print("파자마코딩입니다"\[5:\])  
+print("파자마코딩입니다"\[:3\])  
+{% endcodeblock %}
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+파자마  
+입니다  
+파자마   
+{% endcodeblock %}
+
+* * *
+
+#### `len()` - 문자열의 길이를 구하는 함수
+
+##### [](#Example-4 "Example")Example
+
+{% codeblock lang:python %}
+print(len("파자마코딩입니다"))  
+{% endcodeblock %}
+
+##### [](#Result-4 "Result")Result
+
+{% codeblock %}
+8
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+쉬운 부분이라 그런지 포스팅도 쭉쭉 잘 넘어가네요.  
+아래 출처에 있듯이 책을 참고해서 하고 있는데,  
+이 기세라면 3주 정도면 끝나지 않을까 합니다.  
+다음 시간에는 숫자 관련 연산자를 알아보도록 하겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

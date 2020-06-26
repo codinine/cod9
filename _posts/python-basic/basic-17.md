@@ -1,0 +1,144 @@
+---
+title: "[python-기초]17.표준모듈(1) - math, random"
+date: 2019-03-26 14:28:18
+categories:
+- Python
+- 기초
+---
+### [](#모듈 "모듈")모듈
+
+모듈이란 비슷한 특성이나 기능을 가진 함수 또는 변수들을 모아놓은 집합체라고 생각하시면 됩니다. 파이썬에서 미리 정의되어있는 것은 `표준모듈`, 외부에서 가져와서 사용할 때는 `외부모듈`이라고 합니다.  
+print(), type()의 함수들은 모듈이 아니라 `내장함수`라고 합니다.  
+모듈의 추가 없이도 기본적으로 사용할 수 있기 때문이죠.  
+모듈을 사용하기 위해서는 반드시 import를 해줘야합니다.
+
+#### [](#모듈-사용방법 "모듈 사용방법")모듈 사용방법
+
+{% codeblock %}
+import <모듈명>  
+{% endcodeblock %}
+
+* * *
+
+#### [](#math-모듈 "math 모듈")math 모듈
+
+math 모듈은 이름과 같이 수학과 관련된 함수,변수들을 사용할 수 있습니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+import math  
+# 이름에서 보시다시피 sin,cos,tan 값을 구하는 함수 입니다.  
+print(math.sin(1))  
+print(math.cos(1))  
+print(math.tan(1))  
+# 4로그값, 2는 밑수  
+print(math.log(4,2))  
+
+print(math.floor(2.512415)) # 소수점 내림함수입니다.  
+print(math.ceil(2.512415)) # 소수점 올림함수입니다.  
+
+#반올림 함수  
+print(round(1.5))  
+print(round(2.5))  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+0.8414709848078965  
+0.5403023058681398  
+1.5574077246549023  
+2.0  
+2  
+3  
+2  
+2 # 3을 출력해야 하는데, 2가 나옵니다. 우리가 알고있는 방식과 다르네요.  
+ # 그렇게만 기억하고 넘어가면 되겠습니다.  
+{% endcodeblock %}
+
+* * *
+
+#### [](#모듈-지정하여-가져오기 "모듈 지정하여 가져오기")모듈 지정하여 가져오기
+
+모듈내의 특정 함수 또는 변수만 가져올 수도 있습니다
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+from math import ceil,floor  
+# from 이용하여 가져오면 함수 호출시 math를 붙이지 않아도 됩니다.  
+print(floor(2.512415))  
+print(ceil(2.512415))  
+
+from math import \* #전부 가져오고 싶다면 \*를 사용하면 됩니다.  
+ #하지만 식별자 충돌이 발생할 수 있으므로 권장하지 않습니다.  
+
+import math as m #as를 사용하여 모듈에게 다른 명칭을 부여할 수 있습니다.  
+print(m.floor(2.512415))  
+print(m.ceil(2.512415))  
+{% endcodeblock %}
+
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+2  
+3  
+2  
+3  
+{% endcodeblock %}
+
+* * *
+
+#### [](#random-모듈 "random 모듈")random 모듈
+
+이름과 같이 난수를 발생시키는 모듈입니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+import random as rd  
+print(rd.random()) # 0<x<1 사이의 실수(float)  
+print(rd.uniform(1,5)) # 1<x<5 사이틔 실수(float)  
+print(rd.randrange(10)) # 0에서 9사이의 정수  
+print(rd.randrange(0,101,2)) #0에서 100 사이의 짝수  
+print(rd.choice([10,20,30,40,50])) #요소들중 하나를 선택  
+print(rd.shuffle([10,20,30,40,50])) #리스트를 임의로 섞어줍니다.  
+print(rd.sample([10,20,30,40,50],k=2)) #요소들중 갯수에 맞게 선택  
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+#실행마다 결과는 모두 다릅니다.  
+0.06606344165002431  
+4.523353282440083  
+6  
+36  
+40  
+None #섞기만 하고 리턴값이 없어 None으로 뜨네요.  
+ #제대로 확인하려면 list 변수를 써야겠네요.  
+[40, 10]  
+{% endcodeblock %}
+
+
+
+##### [](#마치며… "마치며…")마치며…
+
+random은 게임 개발할때 필수적으로 사용되는 함수입니다.  
+math는 머신러닝 개발할때 많이 쓰일 것 같네요.  
+이런 모듈이나 함수는 다 외울 필요없이 이런게 있다는 것만 알고 있으면  
+언제든 찾아서 쓸 수 있으니까요.  
+명칭을 외우기보단 어떤 모듈들이 있는지를 많이 알고 있으면 좋겠네요.
+
+[파이썬 표준라이브러리 링크](https://docs.python.org/ko/3/library/index.html)
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

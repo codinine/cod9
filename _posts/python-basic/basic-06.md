@@ -1,0 +1,143 @@
+---
+title: "[python-기초]06.입력(input)과 format() 함수"
+date: 2019-03-26 14:07:18
+categories:
+- Python
+- 기초
+---
+
+#### [](#파이썬-입력-input "파이썬 입력(input)")파이썬 입력(input)
+
+지금까지 계속 `출력(print())`을 사용 했었는데요.  
+이번엔 `입력(input)` 방법을 알아보겠습니다.
+
+##### [](#표현법 "표현법")`표현법`
+
+*   <변수> = input(<프롬프트에서 값 입력>)
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+string = input()  
+# promft 창에 "파자마코딩"이라고 입력하겠습니다.  
+print(string)  
+
+{% endcodeblock %}
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+파자마코딩
+{% endcodeblock %}
+
+* * *
+
+##### [](#input의-자료형 "input의 자료형")input의 자료형
+
+숫자냐 문자냐에 따라 자료형이 달라질까요?
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+string = input()  
+print(type(string)) # '안녕' 입력  
+num = input()  
+print(type(num)) # 123 입력  
+bool = input()  
+print(type(bool)) # False 입력  
+{% endcodeblock %}
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+<class 'str'>  
+<class 'str'>  
+<class 'str'>  
+{% endcodeblock %}
+
+input의 결과는 모두 str(문자열)로 나오네요.  
+그래서 input의 결과들로 원하는 연산을 하기 위해서는  
+지난 시간에 공부했던 형변환을 활용해야 합니다.
+
+* * *
+
+#### [](#format-함수 "format() 함수")format() 함수
+
+format() 함수는 변수들을 출력할때 다양한 형태로  
+출력할 수 있도록 도와주는 함수 입니다.  
+변수가 들어갈 공간을 `중괄호{}`로 표현합니다.  
+ex) “{}”.format(변수 or 값)
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+format_text_a = "{}원".format(3000)  
+format_text_b = "{} {} {}".format(1,2,3)  
+format_text_c = "{}-{}-{}".format("2018","11","09")  
+format_text_d = "{} {} {}".format("pajams",False,123)  
+print(format_text_a)  
+print(format_text_b)  
+print(format_text_c)  
+print(format_text_d)  
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+3000원  
+1 2 3  
+2018-11-09  
+pajams False 123  
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#format-출력형태 "format() 출력형태")format() 출력형태
+
+format 함수를 통해 다양한 숫자 표현들도 가능합니다.
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+format_int_a = "{:d}".format(3) #일반적인 정수 출력  
+format_int_b = "{:5d}".format(10) # 5자리만큼 공간 확보  
+format_int_c = "{:05d}".format(\-15) # 5자리만큼 확보(부호포함) 하고 0 채움  
+format_int_d = "{:+d}".format(10) # 부호표시  
+print(format_int_a)  
+print(format_int_b)  
+print(format_int_c)  
+print(format_int_d)  
+
+format_float_a = "{:f}".format(3.14) #일반적인 소수 출력, 프롬프트 창엔 6자리가 기본으로 표현되네요.  
+format_float_b = "{:10.2f}".format(3.141592) # 10자리만큼 공간 확보하고 소수점 2자리까지 표현  
+format_float_c = "{:0.5f}".format(3.141592) # 소수점 5자리까지만 표현  
+format_float_d = "{:g}".format(3.0000) # 소수점 뒤에 0 제거  
+print(format_float_a)  
+print(format_float_b)  
+print(format_float_c)  
+print(format_float_d)  
+{% endcodeblock %}
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+3.140000  
+ 3.14  
+3.14159  
+3  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+알고리즘 문제들을 풀다보면 입력받은 값(input)들을 가지고  
+처리하여 결과를 print하게 되는데 가장 흔히 하는 실수가  
+input으로 받은 값을 형변환하는 것을 잊게 되더라구요.  
+반복학습을 하다보면 이런 부분들은 쉽게 개선이 될겁니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

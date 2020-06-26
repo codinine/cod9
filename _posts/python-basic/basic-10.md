@@ -1,0 +1,244 @@
+---
+title: "[python-기초]10.리스트&딕셔너리 - 기본"
+date: 2019-03-26 14:14:18
+categories:
+- Python
+- 기초
+---
+[](#리스트 "리스트")리스트
+-----------------
+
+#### [](#리스트-선언-요소-접근 "리스트 선언 , 요소 접근")리스트 선언 , 요소 접근
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+list = [123,4.5,"문자열",False]  
+print(list)  
+print(list[0])  
+print(list[1:3])  
+print(list[-1])  
+list[0] = 999 #리스트 값 변경  
+print(list[0])  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+[123, 4.5, '문자열', False]  
+123  
+[4.5, '문자열']  
+False  
+999  
+{% endcodeblock %}
+
+
+
+* * *
+
+#### [](#리스트-연산자 "리스트 연산자")리스트 연산자
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+list_a = [1,2,3]  
+list_b = [4,5,6]  
+print(list_a + list_b)  
+print(list_a * 3)  
+print(len(list_a))  
+
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+[1, 2, 3, 4, 5, 6]  
+[1, 2, 3, 1, 2, 3, 1, 2, 3]  
+3  
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#리스트-요소-추가-삭제 "리스트 요소 추가/삭제")리스트 요소 추가/삭제
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+list_a = [1,2,3]  
+list_a.append(5)  
+list_a.insert(2,10) # (인덱스,값)  
+print(list_a)  
+list_a.extend([4,5,6]) # 합치기  
+del list_a[2]  
+print(list_a)  
+list_a.pop(3)  
+list_a.pop() # 매개변수가 없으면 마지막 요소 제거  
+print(list_a)  
+del list_a[3:5]  
+print(list_a)  
+list_a.remove(2) #값으로 요소제거  
+print(list_a)  
+list_a.clear() #요소 전체 삭제  
+print(list_a)  
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+[1, 2, 10, 3, 5]  
+[1, 2, 3, 5, 4, 5, 6]  
+[1, 2, 3, 4, 5]  
+[1, 2, 3]  
+[1, 3]  
+[]  
+{% endcodeblock %}
+
+
+
+다른 언어보다 사용하기 쉽다는게 여기서 확실히 느껴지네요.  
+다른 언어에서 배열이라는 부르는 것들은 거의 인덱스를 가지고 컨트롤  
+하는 경우가 많은데 파이썬의 리스트는 인덱스 뿐만 아니라  
+value를 가지고도 컨트롤 할 수 있고 입력/삭제 함수도 다양에서  
+필요해 따라 활용할 수 있어 좋습니다.
+
+* * *
+
+#### [](#리스트-요소-확인 "리스트 요소 확인")리스트 요소 확인
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+list_a = [123,456,777,369]  
+print(123 in list_a)  
+print(444 in list_a)  
+print(444 not in list_a)  
+print(777 not in list_a)  
+{% endcodeblock %}
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+True  
+False  
+True  
+False  
+{% endcodeblock %}
+
+
+* * *
+
+[](#딕셔너리 "딕셔너리")딕셔너리
+--------------------
+
+#### [](#딕셔너리-선언-요소-접근 "딕셔너리 선언 , 요소 접근")딕셔너리 선언 , 요소 접근
+
+##### [](#Example-4 "Example")Example
+
+{% codeblock lang:python %}
+dict = {  
+ "name" : "홍길동",  
+ "age" : "27",  
+ "address" : "서울 도봉구",  
+ "phone" : "010-1234-XXXX",  
+ "hobby" : ["축구","게임","독서"]  
+}  
+print(dict)  
+print(dict["name"]) #요소접근  
+print(dict["hobby"]) #요소접근  
+dict["age"] = 25 # 값변경  
+print(dict["age"])  
+{% endcodeblock %}
+
+
+
+##### [](#Result-4 "Result")Result
+
+{% codeblock %}
+{'name': '홍길동', 'age': '27', 'address': '서울 도봉구', 'phone': '010-1234-XXXX', 'hobby': ['축구', '게임', '독서']}  
+홍길동  
+['축구', '게임', '독서']  
+25  
+{% endcodeblock %}
+
+
+
+* * *
+
+#### [](#딕셔너리-요소-추가-삭제 "딕셔너리 요소 추가/삭제")딕셔너리 요소 추가/삭제
+
+##### [](#Example-5 "Example")Example
+
+{% codeblock lang:python %}
+dict = {  
+ "name" : "홍길동",  
+ "age" : "27",  
+ "address" : "서울 도봉구",  
+ "phone" : "010-1234-XXXX",  
+ "hobby" : ["축구","게임","독서"]  
+}  
+dict["height"] = 172  
+dict["weight"] = 64  
+print(dict)  
+del dict["hobby"]  
+print(dict)  
+{% endcodeblock %}
+
+
+##### [](#Result-5 "Result")Result
+
+{% codeblock %}
+{'name': '홍길동', 'age': '27', 'address': '서울 도봉구', 'phone': '010-1234-XXXX', 'hobby': ['축구', '게임', '독서'], 'height': 172, 'weight': 64}  
+{'name': '홍길동', 'age': '27', 'address': '서울 도봉구', 'phone': '010-1234-XXXX', 'height': 172, 'weight': 64}  
+{% endcodeblock %}
+
+* * *
+
+#### [](#딕셔너리-요소-확인 "딕셔너리 요소 확인")딕셔너리 요소 확인
+
+##### [](#Example-6 "Example")Example
+
+{% codeblock lang:python %}
+dict = {  
+ "name" : "홍길동",  
+ "age" : "27",  
+ "address" : "서울 도봉구",  
+ "phone" : "010-1234-XXXX",  
+ "hobby" : ["축구","게임","독서"]  
+}  
+print("name" in dict)  
+print("height" in dict)  
+print(dict.get("phone"))  
+print(dict.get("height"))  
+{% endcodeblock %}
+
+##### [](#Result-6 "Result")Result
+
+{% codeblock %}
+True  
+False  
+010\-1234\-XXXX  
+None # in 연산자는 True,False를 반환하지만 get은 값이 없으면 None을 반환합니다.  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+파이썬을 이용해서 알고리즘 문제를 몇개 풀어보니  
+리스트와 딕셔너리 활용하기가 정말 편하더라구요.
+
+그런데 **개발자는 C와 C++을 할 줄 알아야 한다.**  
+이런 글을 얼마전에 보니 쪼끔 찔리기도 했습니다.  
+학교에서 배울때 말고는 쓸 일이 없더라구요.  
+요새 워낙 웹쪽이 대세이다보니…  
+기회가 되면 C++도 다시 한번 훑어보고 싶네요.
+
+다음 시간엔 반목문(for,while)을 파헤처 보도록 하겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

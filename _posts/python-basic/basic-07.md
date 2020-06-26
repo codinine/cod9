@@ -1,0 +1,180 @@
+---
+title: "[python-기초]07.문자열 함수(split(),upper(),lower())"
+date: 2019-03-26 14:08:18
+categories:
+- Python
+- 기초
+---
+
+### [](#파이썬-문자열-함수 "파이썬 문자열 함수")파이썬 문자열 함수
+
+#### [](#알파벳-대소문자 "알파벳 대소문자")알파벳 대소문자
+
+|함수 이름|설명|
+|:--------:|:--------:|
+|upper()|알파벳을 대문자로 만들어준다|
+|lower()|알파벳을 대문자로 만들어준다|
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+string_a = "pajamas"  
+string_b = "CODING"  
+print(string_a.upper())  
+print(string_b.lower())
+{% endcodeblock %}
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+PAJAMAS  
+coding  
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#공백제거 "공백제거")공백제거
+
+|함수 이름|설명|
+|:--------:|:--------:|
+|strip()|문자열 양끝 공백 제거|
+|lstrip()|문자열 왼쪽 공백 제거|
+|rstrip()|문자열 오른쪽 공백 제거|
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+string = "    안녕 하세요   "  
+print(string.strip())  
+print(string.lstrip())  
+print(string.rstrip())  
+{% endcodeblock %}
+
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+안녕 하세요  
+안녕 하세요   
+ 안녕 하세요  
+{% endcodeblock %}  
+
+* * *
+
+#### [](#문자열-구성-파악 "문자열 구성 파악")문자열 구성 파악
+
+|함수 이름|설명|
+|:--------:|:--------:|
+|isalnum()|알파벳 또는 숫자로만 구성되었는가?|
+|isalpha()|알파벳으로만 구성되었는가?|
+|isidentifier()|식별자로 사용가능한가?|
+|isdecimal()|정수형태인가?|
+|isdigit()|숫자로 인식될 수 있는가?|
+|isspace()|공백으로만 구성되었는가?|
+|islower()|소문자로만 되어있는가?|
+|isupper()|대문자로만 되어있는가?|
+
+질문 형태로 적은 것은 함수의 결과가 True(예)/False(아니오) 형태로  
+나오기 때문입니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+string_a = "abc123"  
+string_b = "abc"  
+string_c = "123"  
+string_d = "   "  
+string_e = "ABC"  
+print(string_a.isalnum())  
+print(string_b.isalpha())  
+print(string_c.isidentifier())  
+print(string_c.isdigit())  
+print(string_d.isspace())  
+print(string_e.islower())  
+print(string_e.isupper())  
+{% endcodeblock %}
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+True  
+True  
+False  
+True  
+True  
+False  
+True  
+{% endcodeblock %}
+
+* * *
+
+#### [](#문자열-찾기 "문자열 찾기")문자열 찾기
+
+|함수 이름|설명|
+|:--------:|:--------:|
+|find()|왼쪽부터 찾아서 처음 등장하는 위치를 반환|
+|rfind()|오른쪽부터 찾아서 처음 등장하는 위치를 반환|
+|in - 연산자|해당 문자열이 있는가?|
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+string = "시그널 보내 시그널 보내 찌릿찌릿찌릿찌릿"  
+print(string.find("찌릿"))  
+print(string.rfind("시그널"))  
+print("짜릿" in string)  
+print("시그널" in string)
+{% endcodeblock %}
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+14 # 왼쪽에서부터 0으로 시작 - 공백을 포함하여 14번째부터 찌릿 시작  
+7 # 오른쪽부터 찾아서 두번째 '시그널'을 찾음 결과는 왼쪽에서 7번째부터 시작  
+False  
+{% endcodeblock %}
+
+
+True  
+
+* * *
+
+#### [](#문자열-자르기 "문자열 자르기")문자열 자르기
+
+|함수 이름|설명|
+|:--------:|:--------:|
+|split(“자를문자”)|문자열을 “자를문자”로 자름|
+
+리턴은 list 형태로 됩니다. 나중에 자세히 알아보게 됩니다.
+
+##### [](#Example-4 "Example")Example
+
+{% codeblock lang:python %}
+string_a = "1 2 3 4"  
+string_b = "사랑과우정과희망과평화"  
+print(string_a.split(" "))  
+print(string_b.split("과"))  
+{% endcodeblock %}
+
+
+##### [](#Result-4 "Result")Result
+
+{% codeblock %}
+['1', '2', '3', '4']  
+['사랑', '우정', '희망', '평화']  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+여기까지가 파이썬의 기본입니다.  
+이제 조건문,반복문 등의 문법적인 부분을 알아볼 차례네요.  
+다음 시간에 뵙겠습니다~
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

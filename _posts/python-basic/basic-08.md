@@ -1,0 +1,85 @@
+---
+title: "[python-기초]08.비교 연산자, 논리 연산자"
+date: 2019-03-26 14:10:18
+categories:
+- Python
+- 기초
+---
+### [](#비교-연산자 "비교 연산자")비교 연산자
+
+|연산자|설명|
+|:--------:|:--------:|
+|==|같다|
+|!=|다르다|
+|<|오른쪽이 크다|
+|>|왼쪽이 크다|
+|<=|오른쪽이 크거나같다|
+|>=|왼쪽이 크거나같다|
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+a = 10  
+b = 12  
+print(a<b)  
+print(a>b)  
+print(a==b)  
+print(a!=b)  
+{% endcodeblock %}
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+True  
+False  
+False  
+True  
+{% endcodeblock %}
+
+
+
+* * *
+
+### [](#논리-연산자 "논리 연산자")논리 연산자
+
+|연산자|설명|
+|:--------:|:--------:|
+|not|결과를 반대로|
+|and|모두 참일때 True, 나머지는 False|
+|or|하나라도 참이면 True, 모두 거짓일때 False|
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+a = 10  
+b = 12  
+print(a==10 and b==12)  
+print(a==5 or b==12)  
+print(not True)  
+print(not (a==3 and b==12))  
+print(False and False)  
+print(True or False)  
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+True  
+True  
+False  
+True  
+False  
+True  
+{% endcodeblock %}
+
+
+##### [](#마치며… "마치며…")마치며…
+
+책의 진도와 맞추다보니 이번엔 분량이 조금 적네요.  
+하지만 조건문에서 활용하려면 굉장히 중요합니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

@@ -1,0 +1,201 @@
+---
+title: "[python-기초]22.클래스(Class)(2) - 클래스 변수와 함수"
+date: 2019-03-26 14:36:18
+categories:
+- Python
+- 기초
+---
+
+### [](#인스턴스-확인 "인스턴스 확인")인스턴스 확인
+
+여러 종류의 인스턴스들이 섞여있을때 우리는 그 인스턴스가 어떤 클래스인지  
+알아야 할때가 있을겁니다. 쉽게 말해 백화점에 갔는데  
+학생도 있고, 직장인도 있고, 주부도 있는데 다들 섞여있으니 한눈에 알아보기  
+어렵다는 것이죠. 그럴때 그 사람이 어떤 클래스로부터 만들어진 객체인지  
+알 수 있는 방법이 있습니다.
+
+{% codeblock %}
+isinstance(<인스턴스>,<클래스>)  
+{% endcodeblock %}
+
+객체가 해당 클래스에서 생성된 것인지 True,False로 반환해주는 함수입니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+# 클래스를 선언합니다.  
+class Student:  
+ def whoami(self):  
+ print("학생입니다")  
+
+class Teacher:  
+ def whoami(self):  
+ print("선생님입니다.")  
+
+class Parent:  
+ def whoami(self):  
+ print("학부모입니다.")  
+
+# 객체를 만듭니다.  
+student = Student()  
+teacher = Teacher()  
+parent = Parent()  
+
+# 인스턴스 확인하기  
+print("isinstance(student, Student):", isinstance(student, Student))  
+print("isinstance(teacher, Teacher):", isinstance(teacher, Teacher))  
+print("isinstance(parent, Student):", isinstance(parent, Student))  
+
+list_a = [Student(),Teacher(),Parent(),Teacher()]  
+for person in list_a:  
+ person.whoami()  
+{% endcodeblock %}
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+isinstance(student, Student): True  
+isinstance(teacher, Teacher): True  
+isinstance(parent, Student): False #학부모를 학생클래스로 확인했으므로 False  
+
+학생입니다  
+선생님입니다.  
+학부모입니다.  
+선생님입니다.  
+{% endcodeblock %}
+
+* * *
+
+### [](#클래스-변수와-함수 "클래스 변수와 함수")클래스 변수와 함수
+
+#### [](#클래스-변수 "클래스 변수")클래스 변수
+
+{% codeblock %}
+# 정의  
+class <클래스명>:  
+ <클래스변수> = 값  
+#접근  
+<클래스명>.<변수명>  
+{% endcodeblock %}
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+class Student:  
+ count = 1  
+ def __init__(self,name):  
+ print("{}학생은 {}번째 생성된 학생입니다.".format(name,Student.count))  
+ Student.count += 1  
+
+student = [Student("홍길동"),Student("성춘향"),Student("이몽룡")]  
+print(Student.count)  
+{% endcodeblock %}
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+홍길동학생은 1번째 생성된 학생입니다.  
+성춘향학생은 2번째 생성된 학생입니다.  
+이몽룡학생은 3번째 생성된 학생입니다.  
+4 #3번째 호출이 끝나고 1이 증가하여 4가되었네요.  
+{% endcodeblock %}
+
+#### [](#클래스-함수 "클래스 함수")클래스 함수
+
+기존에 이미 메서드를 만드는 방법을 알아봤는데, 클래스 함수라는 건  
+좀 특별한 것인걸까요? 기능이나 구현 방법은 동일합니다.  
+다만 차이가 있다면 클래스 내에 존재하는 함수라고 명시를 해주는 것 뿐입니다.  
+함수 위의 `@classmethod`을 붙여주면 됩니다.  
+`데코레이터`라고 하는데요. 자세하게 궁금하신분들은 검색해서 찾아보세요~
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+class Student:  
+ @classmethod  
+ def print(cls,text):  
+ print("{}을(를) 출력합니다.".format(text))  
+
+student = Student()  
+student.print("파자마코딩")  
+{% endcodeblock %}
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+파자마코딩을(를) 출력합니다.  
+{% endcodeblock %}
+
+
+* * *
+
+### [](#상속 "상속")상속
+
+객체지향 언어의 중요한 개념 중 `상속`이 있습니다. 다소 어려울 수 있지만  
+중요한 개념이라 가지고 왔습니다.  
+상속은 우리가 알고 있는 일반적인 의미인 `상속`의 개념과 유사합니다.  
+부모에게 유전자든 재산이든 일부를 물려받는 것이죠.  
+그리고 그렇게 물려받은 자원 중 일부를 자신의 기호대로 활용할 수 있는 것입니다.
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+# 부모 클래스를 선언합니다.  
+class Parent:  
+ def __init__(self):  
+ self.value = "부모"  
+ print("Parent 클래스의 __init()__ 메서드가 호출되었습니다.")  
+ def test(self):  
+ print("Parent 클래스의 test() 메서드입니다.")  
+# 자식 클래스를 선언합니다.  
+class Child(Parent):  
+ def __init__(self):  
+ Parent.__init__(self) #부모의 클래스를 상속받음  
+ print("Child 클래스의 __init()__ 메서드가 호출되었습니다.")  
+
+# 자식 클래스의 인스턴스를 생성하고 부모의 메서드를 호출합니다.  
+child = Child()  
+child.test()  
+child.value = "자식"  
+print(child.value)  
+print()  
+Parent = Parent()  
+print(Parent.value)  
+{% endcodeblock %}
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+Parent 클래스의 __init()__ 메서드가 호출되었습니다.  
+Child 클래스의 __init()__ 메서드가 호출되었습니다.  
+Parent 클래스의 test() 메서드입니다.  
+자식  
+
+Parent 클래스의 __init()__ 메서드가 호출되었습니다.  
+부모  
+{% endcodeblock %}
+
+Child 클래스는 Parent클래스를 상속받아 Parent 클래스의 있는  
+메서드와 value라는 변수를 사용하였습니다.  
+자식이 value의 변수를 변경하여도  
+부모클래스에는 영향을 미치지 않죠.
+
+##### [](#마치며… "마치며…")마치며…
+
+파이썬 기초에 대한 포스팅이 모두 끝났습니다.  
+마치 일기쓰듯 포스팅을 했는데 열심히 하다보니 10일도 안걸린거 같습니다.  
+혹시 파이썬을 독학하고자 하시는 분들이 있다면  
+[김왼손의 왼손코딩](https://www.youtube.com/channel/UC0h8NzL2vllvp3PjdoYSK4g) 강의를 추천드리구요.  
+더불어 Hello Coding 파이썬 - 윤인성, Hello Coding 한입에 쏙 파이썬 - 김왼손  
+님의 책도 추천드립니다.  
+파이썬의 기초 정도는 정말 돈 안들이고 충분히 독학으로 공부하실 수 있을 것 같아요.  
+비전공자라 할지라도 말이죠.
+
+이제는 조금 더 나아가 파이썬 웹 프로그래밍이나 머신러닝 등을 공부해서  
+포스팅해보도록 하겠습니다. 혹은 10대 학생들에게 맞춘 코딩 관련 포스팅이  
+올라가게 될 수도 있습니다. 감사합니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

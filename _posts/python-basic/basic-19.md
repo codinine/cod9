@@ -1,0 +1,95 @@
+title: '[python-기초]19.표준모듈(2) - datetime, time'
+categories:
+  - Python
+  - 기초
+tags: []
+date: 2019-03-26 14:32:00
+---
+#### [](#datetime-모듈 "datetime 모듈")datetime 모듈
+
+날짜, 시간과 관련된 모듈입니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+import datetime  
+now = datetime.datetime.now()  
+print(now.year, "년")  
+print(now.month, "월")  
+print(now.day, "일")  
+print(now.hour, "시")  
+print(now.minute, "분")  
+print(now.second, "초")  
+
+date_a = now.strftime("%Y-%m-%d %H:%M:%S")  
+date_b = "{}년 {}월 {}일 {}시 {}분".foramt(now.year, now.month, now.day, now.hour, now.minute)  
+date_c = now.strftime("%Y{}%m{}%d{} %H{}%M{}%S{}").format(*"년월일시분초")  
+print(date_a)  
+print(date_b)  
+print(date_c)  
+#timedelta 함수로 날짜,시간을 더하거나 뺄 수 있습니다.  
+conv_day = now + datetime.timedelta(days=3)  
+print(conv_day)  
+#기존에 있던 now의 값을 replace로 대체 할수도 있습니다.  
+conv_month  = now.replace(month=(now.month-3))  
+print(conv_month)  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+2018 년  
+11 월  
+15 일  
+14 시  
+3 분  
+53 초  
+2018-11-15 14:03:53  
+2018년 11월 15일 14시 3분  
+2018년11월15일 14시03분53초  
+
+2018-11-18 14:06:15.086225  
+2018-08-15 14:08:04.575064  
+{% endcodeblock %}
+
+
+
+* * *
+
+#### [](#time-모듈 "time 모듈")time 모듈
+
+시간과 관련된 모듈입니다. 일반적으로는 datetime을 더 많이 사용하지만  
+time만이 가지고 있는 기능들도 있습니다.
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+import time  
+print("시간이 3초간 정지됩니다.")  
+time.sleep(3)  
+print("3초 지났네?!")  
+{% endcodeblock %}
+
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+시간이 3초간 정지됩니다.  
+(3초후)  
+3초 지났네?!  
+{% endcodeblock %}
+
+
+
+##### [](#마치며… "마치며…")마치며…
+
+이제 3~4회 정도면 python 기초가 마무리 될 것 같습니다.  
+지금 책 한권이 끝나간다는 성취감이나 기쁨보다는 빨리 더 깊이있는  
+지식들을 습득해야겠단 욕심이 앞서는 것 같습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

@@ -1,0 +1,189 @@
+---
+title: "[python-기초]14.함수(2) - 리턴값과 재귀함수"
+date: 2019-03-26 14:22:18
+categories:
+- Python
+- 기초
+---
+#### [](#리턴 "리턴")리턴
+
+함수에서는 리턴값이 존재할 수 있습니다.(필수는 아님)  
+리턴값은 함수를 통해 처리된 결과를 반환하는 것입니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+def return_test():  
+ return 100  
+print(return_test())  
+{% endcodeblock %}
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+100 # 함수를 호출하면 리턴된 결과 100을 보여줍니다.  
+{% endcodeblock %}
+
+
+정리를 해보면 리턴값이 존재하는 함수의 형태는 다음과 같습니다.
+
+#### [](#기본-형태 "기본 형태")기본 형태
+
+{% codeblock %}
+def <함수명>(매개변수들):  
+ # 여러가지 처리  
+ # 여러가지 처리  
+ # 여러가지 처리  
+ return <처리된 결과>  
+{% endcodeblock %}
+
+
+
+* * *
+
+##### [](#범위-내의-숫자를-더하는-함수 "범위 내의 숫자를 더하는 함수")범위 내의 숫자를 더하는 함수
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+def sum_all(sNum,eNum):  
+ sum = 0  
+ for i in range(sNum,eNum+1):  
+ sum += i  
+ return sum  
+
+print("1~100까지 더하기 : " ,sum_all(1,100))  
+
+def sum_all_2(sNum=0,eNum=100,step=1):  
+ sum = 0  
+ for i in range(sNum,eNum+1,step):  
+ sum += i  
+ return sum  
+
+print("A.", sum_all_2(0,100,10))  
+print("B.", sum_all_2(end=100))  
+print("C.", sum_all_2(end=100,step=2))  
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+1~100까지 더하기 :  5050  
+A. 550  
+B. 5050  
+C. 2550  
+{% endcodeblock %}
+
+* * *
+
+#### [](#재귀함수 "재귀함수")재귀함수
+
+##### [](#팩토리얼-함수 "팩토리얼 함수")팩토리얼 함수
+
+팩토리얼은 주어진 숫자를 1씩 줄여가면서 곱하는 것을 말합니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+# 반복문으로 구현  
+def factorial(n):  
+ result = 1  
+ for i in range(1,n+1):  
+ result *= i  
+ return result  
+print(factorial(3))  
+
+# 재귀 함수로 구현  
+def factorial_2(num):  
+ if num == 1:  
+ return 1  
+ else:  
+ return num * factorial_2(num - 1)  
+
+print(factorial_2(4))
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+6  
+24  
+{% endcodeblock %}
+
+
+
+* * *
+
+##### [](#피보나치-수열 "피보나치 수열")피보나치 수열
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+# 재귀 함수로 구현  
+def fibonacci(n):  
+ if n == 1:  
+ return 1  
+ elif n == 2:  
+ return 1  
+ else:  
+ return fibonacci(n\-1)+fibonacci(n\-2)  
+
+print(fibonacci(5))  
+{% endcodeblock %}
+
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+5
+{% endcodeblock %}
+
+그런데 이 방법에는 한가지 문제가 있습니다.  
+만약 fibonacci()의 매개변수를 35 이상으로 입력한다면  
+계산하는데 꽤 오랜 시간이 걸린다는 것을 알 수 있습니다.  
+이는 재귀함수가 꼬리에 꼬리를 물며 계산하는 횟수가  
+기하급수적으로 늘어나기 때문입니다.
+
+이를 해결하는 방법은 `메모화`를 이용하는 것입니다.
+
+* * *
+
+##### [](#메모화 "메모화")메모화
+
+{% codeblock lang:python %}
+dict = {1:1,  
+ 2:2}  
+def fibonacci(n):  
+ if n in dict:  
+ return dict[n]  
+ else:  
+ output = fibonacci(n\-1)+fibonacci(n\-2)  
+ dict[n] = output  
+ return output  
+
+print(fibonacci(45))
+{% endcodeblock %}
+
+
+
+##### [](#Result-4 "Result")Result
+
+{% codeblock %}
+1836311903  
+{% endcodeblock %}
+
+
+
+##### [](#마치며… "마치며…")마치며…
+
+메모화라는 개념은 잘 몰랐었는데 재귀함수 사용할때 아주 유용하게  
+쓸 수 있을 것 같습니다.  
+다음 시간에는 리스트와 비슷한듯 다른 `튜플`에 대해서 알아보겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

@@ -1,0 +1,143 @@
+---
+title: "[python-기초]12.리스트&딕셔너리 - 응용"
+date: 2019-03-26 14:18:18
+categories:
+- Python
+- 기초
+---
+
+### [](#파이썬-list-형변환 "파이썬 list 형변환")파이썬 list 형변환
+
+파이썬에선 문자열, 숫자 형변환 뿐만 아니라  
+문자열, 딕셔너리 등을 list 형태로 형변환 할 수도 있습니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+text = "안녕하세요"  
+dict = {"A":65, "B":66}  
+rang = range(5)  
+print(list(text))  
+print(list(dict))  
+print(list(rang))
+{% endcodeblock %}
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+['안', '녕', '하', '세', '요']  
+['A', 'B']  
+[0, 1, 2, 3, 4]  
+{% endcodeblock %}
+
+* * *
+
+### [](#파이썬-enumerate-함수 "파이썬 enumerate() 함수")파이썬 enumerate() 함수
+
+반복문을 사용할때 index와 value를 동시에 사용해야하는 경우가  
+빈번하게 발생합니다. 그때 enumerate 함수를 사용하면 유용합니다.  
+enumerate() 함수는 리스트를 기반으로 인덱스와 요소의 조합을  
+만들어주는 함수 입니다.
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+list_a = [231,454,346]  
+for i in range(0,len(list_a)):  
+ print("{}번째 요소는 {}입니다.".format(i,list_a[i]))  
+
+print(list(enumerate(list_a)))  
+for i,value in enumerate(list_a):  
+ print("{}번째 요소는 {}입니다.".format(i,value))
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+0번째 요소는 231입니다.  
+1번째 요소는 454입니다.  
+2번째 요소는 346입니다.  
+[(0, 231), (1, 454), (2, 346)]  
+0번째 요소는 231입니다.  
+1번째 요소는 454입니다.  
+2번째 요소는 346입니다.  
+{% endcodeblock %}
+
+
+* * *
+
+### [](#파이썬-딕셔너리의-items-함수 "파이썬 딕셔너리의 items() 함수")파이썬 딕셔너리의 items() 함수
+
+리스트의 enumerate() 함수처럼  
+딕셔너리의 items() 함수를 이용하면 key, vlaue 값을  
+리스트형태로 쉽게 가져올 수 있습니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+dict = {"A":65, "B":66, "C":67}  
+print(dict.items())  
+for key,value in dict.items():  
+ print("Key : {}, Value: {}".format(key,value))  
+{% endcodeblock %}
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+dict_items([('A', 65), ('B', 66), ('C', 67)])  
+Key : A, Value: 65  
+Key : B, Value: 66  
+Key : C, Value: 67  
+{% endcodeblock %}
+
+* * *
+
+### [](#파이썬-리스트-내포 "파이썬 리스트 내포")파이썬 리스트 내포
+
+만약 어떤 리스트의 값들 중에서  
+짝수만 골라내어 제곱한 값을 다시 리스트로 만들고 싶다면  
+어떻게 해야될까요?
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+list_a = []  
+for i in range(0,11,2):  
+ list_a.append(i*i)  
+print(list_a)  
+
+list_b = [i*i for i in range(0,11,2)]  
+print(list_b)  
+
+list_c = [i*i for i in range(0,11,2) if i != 8]  
+print(list_c)  
+{% endcodeblock %}
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+[0, 4, 16, 36, 64, 100]  
+[0, 4, 16, 36, 64, 100]  
+[0, 4, 16, 36, 100]  
+{% endcodeblock %}
+
+위의 `list_b`와 같이 별도의 반복문을 구현하지 않고 리스트 내에서  
+반복문을 정의하여 나온 결과 값들을 리스트로 만들 수도 있습니다.  
+`list_c` 처럼 조건을 넣을 수도 있습니다.
+
+##### [](#마치며… "마치며…")마치며…
+
+파이썬 기초 포스팅도 어느덧 절반이 이루어졌습니다.  
+목표했던 기간보다 더 짧은 시간에 포스팅이 완료될 수도 있겠네요.
+
+다음 시간에는 함수에 대해서 알아보려고 합니다.  
+기존에 소개해드렸던 파이썬에서 기본적으로 제공하는 내장함수 외에  
+사용자가 직접 정의를 내려 사용하는 함수들을 살펴보도록 하겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

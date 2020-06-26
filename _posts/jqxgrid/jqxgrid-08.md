@@ -1,0 +1,128 @@
+---
+title: "[jqxgrid]8.Row Add/Del (자바스크립트 프레임워크,상용 그리드)"
+date: 2019-03-26 13:23:18
+categories:
+- JS
+- jqxgrid
+---
+
+### [](#Jqxgrid-Row-Add-Del "Jqxgrid Row Add/Del")Jqxgrid Row Add/Del
+
+특정 컬럼을 커스텀하여 Button형태로 만들고  
+해당 버튼에 click event를 적용하여 Row를 추가하거나  
+삭제하는 기능을 구현해보도록 하겠습니다.
+
+이전 시간에 했던 edit 활성화와 validation은  
+그대로 두었습니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:javascript %}
+$(document).ready(function () {  
+ // 각 row data에 add_btn,del_btn의 값을 동일하게 +,-로 지정했습니다.  
+ //해당 값이 없을 경우 버튼 안에 text가 false로 표시됩니다.  
+var data = '[{ "name": "홍길동", "age": "23", "address": "경기","phone": "010-1234-XXXX", "birthday": "1990-02-05","allowance": 5000, "gender":"남","add_btn":"+","del_btn":"-"}}]';  
+
+
+ var source = {  
+ datatype: "json",  
+ datafields: [  
+ {name: 'name',type: 'string'},  
+ {name: 'age',type: 'int'},  
+ {name: 'address',type: 'string'},  
+ {name: 'phone',type: 'string'},  
+ {name: 'birthday',type: 'date'},  
+ {name: 'allowance',type: 'number'},  
+ {name: 'gender',type: 'string'},  
+ // 마찬가지로 버튼 필드 2개를 추가하였습니다.  
+ {name: 'add_btn',type: 'string'},  
+ {name: 'del_btn',type: 'string'}  
+ ],  
+ localdata: data  
+ };  
+ var dataAdapter = new $.jqx.dataAdapter(source);  
+
+
+ $("#jqxgrid").jqxGrid({  
+ width: '100%',  
+ height: '300',  
+ source: dataAdapter,  
+ sortable: true,  
+ filterable: true,  
+ editable: true,  
+ showstatusbar: true,  
+ columnsresize: true,  
+ theme: 'energyblue',  
+ columns: [  
+ // 버튼 필드 추가로 인해 전체적인 width 값을 조정하였습니다.  
+ {text: '이름',datafield: 'name',width: "10%", align:"center"},  
+ {text: '나이',datafield: 'age',width: "10%", align:"center",validation: function (cell, value) {  
+ if (value == "") return true;  
+ if (value < 18) {  
+ return { result: false, message: "18세 미만은 부모님의 동의가 필요합니다." };  
+ }  
+ return true;  
+ }},  
+ {text: '주소',datafield: 'address',width: "10%", align:"center"},  
+ {text: '전화번호',datafield: 'phone',width: "18%", align:"center"},  
+ {text: '생일',datafield: 'birthday',cellsformat: "yyyy-MM-dd",width: "17%", align:"center",columntype: 'datetimeinput'},  
+ {text: '용돈',datafield: 'allowance',cellsformat : 'd',cellsalign: 'right',width: "15%", align:"center",columntype: 'numberinput',  
+ validation: function (cell, value) {  
+ if (value == "") return true;  
+ if (value < 1000) {  
+ return { result: false, message: "용돈은 1000원 이상 입력해야합니다." };  
+ }  
+ return true;  
+ },  
+ createeditor: function (row, cellvalue, editor) {  
+ editor.jqxNumberInput({ decimalDigits: 0, digits: 6 });  
+ }},  
+ {text: '성별',datafield: 'gender',width: "10%", align:"center", columntype: 'dropdownlist'},  
+ //columntype 컬럼 타입을 버튼으로 지정하고 buttonclick event를 함수로 구현합니다.  
+ {text: '추가', datafield: 'add_btn',width: '5%',align: 'center',columntype:'button',  
+ buttonclick: function (row) {  
+ // select된 row의 정보를 가져와 index 값을 구합니다.  
+ var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');  
+ var index = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);  
+ // 앞서말한 바와 같이 add_btn,del_btn값은 지정해준 후 add해야합니다.  
+ // 그렇지 않으면 버튼 텍스트가 false로 나오게 됩니다.  
+ var rows = {  
+ add_btn : "+",  
+ del_btn : "-"  
+ }  
+ //index+1은 선택한 행 바로 아래에 행을 추가하기 위해서입니다.  
+ //맨 윗줄에 추가하고 싶은 경우 "first" 또는 0,  
+ // 마지막에 추가하고 싶을땐 "last"로 지정하면 됩니다.  
+ $("#jqxgrid").jqxGrid("addrow", null, rows,index+1);  
+ $("#jqxgrid").jqxGrid('endupdate');  
+
+ }  
+ },  
+ {text: '삭제', datafield: 'del_btn',width: '5%',align: 'center',columntype:'button',  
+ buttonclick: function (row) {  
+ // addrow와 거의 유사하며 삭제할때는 삭제하고자하는 row의 index만 지정해주면 됩니다.  
+ var selectedrowindex = $("#jqxgrid").jqxGrid('getselectedrowindex');  
+ var index = $("#jqxgrid").jqxGrid('getrowid', selectedrowindex);  
+ $("#jqxgrid").jqxGrid('deleterow', index);  
+ $("#jqxgrid").jqxGrid('endupdate');  
+
+ }}  
+ ]  
+ });  
+
+});  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+행을 추가하고 삭제하는 부분까지 해보았습니다.  
+이쯤되면 DB와 연동하여 처리하는 방식을 고민하고 계실것 같습니다.  
+저는 PHP 개발자라 주로 PHP로 데이터 처리를 하였습니다.  
+기회가 된다면 DB와 연동하여 처리하는 방법을 함께 알아보도록 하겠습니다.
+
+jqxgrid 포스팅도 이제 후반부에 다가오는 것 같습니다.  
+물론 jqxgrid는 여전히 다양하고 많은 기능들이 있지만  
+추가적으로 필요하신 부분은 jqxgrid demo 페이지에서 확인하시면 될 것 같습니다.
+
+다음 시간에는 Cellrender를 통해 특정 셀의 형태를 바꿔보고  
+cellclassname을 통해 디자인을 변경하는 방법을 알아보도록 하겠습니다.

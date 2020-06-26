@@ -1,0 +1,177 @@
+---
+title: "[python-기초]20.외부모듈 - beautifulsoup, flask"
+date: 2019-03-26 14:34:18
+categories:
+- Python
+- 기초
+---
+
+### [](#외부모듈 "외부모듈")외부모듈
+
+외부 모듈은 별도로 설치해야 합니다.  
+pip를 이용하여 beautifulsoup, flask 두가지만 설치하여  
+예제를 작성해보도록 하겠습니다.
+
+#### [](#Beautiful-Soup-모듈 "Beautiful Soup 모듈")Beautiful Soup 모듈
+
+Beautiful Soup는 웹페이지 분석 모듈입니다.  
+설치는 명령프롬프트(cmd)창을 열어서 합니다.
+
+##### [](#설치 "설치")설치
+
+{% codeblock %}
+pip install beautifulsoup4  
+{% endcodeblock %}
+
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+from urllib import request  
+from bs4 import BeautifulSoup  
+
+target = request.urlopen("http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108")  
+soup = BeautifulSoup(target,"html.parser")  
+
+for location in soup.select("location"):  
+ print("도시 :", location.select_one("city").string)  
+ print("날씨 :", location.select_one("wf").string)  
+ print("최저기온 :", location.select_one("tmn").string)  
+ print("최고기온 :", location.select_one("tmx").string)  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+도시 : 서울  
+날씨 : 구름많음  
+최저기온 : 2  
+최고기온 : 10  
+도시 : 인천  
+날씨 : 구름많음  
+최저기온 : 3  
+최고기온 : 10  
+도시 : 수원  
+날씨 : 구름많음  
+최저기온 : 1  
+최고기온 : 11  
+{% endcodeblock %}
+
+
+...  
+
+와~ 에러나고 안될줄 알았는데 이게 한번에 되네요.  
+해당 xml 파일의 tag로 걸려있는 요소들을 반복 호출하여 불러오는 방식입니다.  
+`Beautiful Soup`에 대해 더 궁금하시다면 책이나 인터넷으로 자료를  
+찾아보시면 될 것 같습니다. (여기는 Basic이므로…)
+
+* * *
+
+#### [](#Flask-모듈 "Flask 모듈")Flask 모듈
+
+파이썬 웹개발에 관심이 있으시다면 한번쯤은 들어보셨을 겁니다.  
+저도 들어만 보고 이번에 처음 접하게 되었습니다.  
+(사실 Django가 더 관심분야라 다음엔 Django 관련 포스팅을 할까 생각중…)
+
+##### [](#설치-1 "설치")설치
+
+{% codeblock lang:python %}
+pip install flask
+{% endcodeblock %}
+
+
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+from flask import Flask  
+app = Flask(__name__)  
+
+@app.route("/")  
+def hello():  
+ return "<h1>Hello World!</h1>"  
+{% endcodeblock %}
+
+
+##### [](#명령프롬프트-cmd "명령프롬프트(cmd)")명령프롬프트(cmd)
+
+{% codeblock %}
+set FLASK_APP=hello.py  
+flask run  
+
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+* Serving Flask app "hello.py"  
+* Environment: production  
+ WARNING: Do not use the development server in a production environment.  
+ Use a production WSGI server instead.  
+* Debug mode: off  
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)  
+{% endcodeblock %}
+
+정상적으로 실행이 되었다면 [http://127.0.0.1:5000/](http://127.0.0.1:5000/)  
+브라우저에서 Hello World! 라는 문구를 보실 수 있을겁니다.
+
+* * *
+
+#### [](#BeautifulSoup-와-Flask-조합 "BeautifulSoup 와 Flask 조합")BeautifulSoup 와 Flask 조합
+
+이제 두개의 모듈을 조합해서 확인해볼게요.  
+예제가 길어서 이번엔 퍼왔습니다.
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+# 모듈을 읽어 들입니다.  
+from flask import Flask  
+from urllib import request  
+from bs4 import BeautifulSoup  
+
+# 웹 서버를 생성합니다.  
+app = Flask(__name__)  
+@app.route("/")  
+def hello():  
+ # urlopen() 함수로 기상청의 전국 날씨를 읽습니다.  
+ target = request.urlopen("http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108")  
+
+ # BeautifulSoup를 사용해 웹 페이지를 분석합니다.  
+ soup = BeautifulSoup(target, "html.parser")  
+
+ # location 태그를 찾습니다.  
+ output = ""  
+ for location in soup.select("location"):  
+ # 내부의 city, wf, tmn, tmx 태그를 찾아 출력합니다.  
+ output += "<h3>{}</h3>".format(location.select_one("city").string)  
+ output += "날씨: {}<br/>".format(location.select_one("wf").string)  
+ output += "최저/최고 기온: {}/{}"\  
+ .format(\  
+ location.select_one("tmn").string,\  
+ location.select_one("tmx").string\  
+ )  
+ output += "<hr/>"  
+ return output  
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+![](/images/python-basic-20_1.png)
+
+다음과 같은 결과가 나오는 것을 볼 수 있습니다.
+
+##### [](#마치며… "마치며…")마치며…
+
+외부 모듈 2개를 살펴봤습니다.  
+전공인 웹 프로그래밍쪽을 만나니 더 반갑네요.  
+Django도 빨리 사용해보고 싶습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

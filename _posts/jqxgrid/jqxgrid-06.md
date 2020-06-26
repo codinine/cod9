@@ -1,0 +1,103 @@
+---
+title: "[jqxgrid]6.Row select/click Event (자바스크립트 프레임워크,상용 그리드)"
+date: 2019-03-26 13:21:18
+categories:
+- JS
+- jqxgrid
+---
+
+### [](#Jqxgrid-Event "Jqxgrid Event")Jqxgrid Event
+
+grid내의 Edit 기능을 이용하여 데이터를 즉시 수정할 수도 있지만  
+row의 데이터들을 가져와서 재가공(수정/삭제)이 필요한 경우도  
+있을 겁니다. 사용자의 실수 방지와 직관성을 높이기 위해서는  
+이런 디자인 방식이 더 유용한 경우가 있을겁니다.
+
+그래서 Row의 클릭/더블클릭/드래그&드롭 등의 기능을 이용할 수  
+있는데요. Drag&Drop의 경우 사용하는 빈도 수가 낮고  
+구현 방식도 조금 까다로워 일단 배제하도록 하겠습니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:javascript %}
+$(document).ready(function () {  
+var data = '[{ "name": "홍길동", "age": "23", "address": "경기","phone": "010-1234-XXXX", "birthday": "1990-02-05","allowance": 5000, "gender":"남"}]';  
+
+ var source = {  
+ datatype: "json",  
+ datafields: [  
+ {name: 'name',type: 'string'},  
+ {name: 'age',type: 'int'},  
+ {name: 'address',type: 'string'},  
+ {name: 'phone',type: 'string'},  
+ {name: 'birthday',type: 'date'},  
+ {name: 'allowance',type: 'number'},  
+ {name: 'gender',type: 'string'}  
+ ],  
+ localdata: data  
+ };  
+ var dataAdapter = new $.jqx.dataAdapter(source);  
+
+
+ $("#jqxgrid").jqxGrid({  
+ width: '100%',  
+ height: '300',  
+ source: dataAdapter,  
+ sortable: true,  
+ filterable: true,  
+ showstatusbar: true,  
+ columnsresize: true,  
+ theme: 'energyblue',  
+ columns: [  
+ {text: '이름',datafield: 'name',width: "10%", align:"center"},  
+ {text: '나이',datafield: 'age',width: "10%", align:"center"},  
+ {text: '주소',datafield: 'address',width: "10%", align:"center"},  
+ {text: '전화번호',datafield: 'phone',width: "20%", align:"center"},  
+ {text: '생일',datafield: 'birthday',cellsformat: "yyyy-MM-dd",width: "20%", align:"center"},  
+ {text: '용돈',datafield: 'allowance',cellsformat : 'd',cellsalign: 'right',width: "20%", align:"center"},  
+ {text: '성별',datafield: 'gender',width: "10%", align:"center"}  
+ ]  
+ });  
+
+ // jqxgrid의 bind 함수를 통해 이벤트를 지정해줍니다.  
+ $('#jqxgrid').bind('rowselect', function (event) {  
+ // 선택된 row의 데이터를 가져와 getRowData에 넣어줍니다.  
+ // 그리고 각 필드의 값을 해당 input tag안에 입력해줍니다.  
+ var getRowData = $('#jqxgrid').jqxGrid('getrows')[event.args.rowindex];  
+ var name = getRowData['name'];  
+ var age = getRowData['age'];  
+ var address = getRowData['address'];  
+ var phone = getRowData['phone'];  
+ var birthday = getRowData['birthday'];  
+ var allowance = getRowData['allowance'];  
+ var gender = getRowData['gender'];  
+
+ $("input[name='ipName']").val(name);  
+ $("input[name='ipAge']").val(age);  
+ $("input[name='ipAddress']").val(address);  
+ $("input[name='ipPhone']").val(phone);  
+ $("input[name='ipBirthday']").val(birthday);  
+ $("input[name='ipAllowance']").val(allowance);  
+ $("input[name='ipGender']").val(gender);  
+
+ });  
+
+ // 더블클릭이벤트도 마찬가지 방식입니다.  
+ $('#jqxgrid').on('rowdoubleclick', function (event) {  
+ alert(event.args.rowindex);  
+ });  
+
+});  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+생각보다 구현방법이 간단하여 제가 설명해 드릴 것이  
+별로 없네요. 하지만 이런 클릭 이벤트를 통해서  
+다른 URL 페이지로 연결한다던지, 팝업창을 띄운다던지  
+Row의 정보를 가지고 다른 데이터를 처리하거나 할때  
+유용하게 사용할 수 있을 것 같습니다.
+
+다음 시간에는 Edit를 활성화하여 cell을 수정하고  
+Validation을 적용해 범위와 형식에 맞는 데이터를  
+입력할 수 있도록 해보겠습니다.

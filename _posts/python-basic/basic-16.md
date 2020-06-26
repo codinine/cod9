@@ -1,0 +1,196 @@
+---
+title: "[python-기초]16.예외처리"
+date: 2019-03-26 14:26:18
+categories:
+- Python
+- 기초
+---
+
+### [](#예외처리 "예외처리")예외처리
+
+프로그램을 사용하는 사용자는 개발자의 의도와는 다른 액션을 취해서  
+버그가 발생하는 경우가 있습니다. 이런 버그 발생시에 해당 프로그램이  
+종료되거나 원치않는 에러메세지 출력을 방지하지 위해 예외처리를 사용합니다.
+
+#### [](#기본형태 "기본형태")기본형태
+
+{% codeblock %}
+try:  
+ <예외 발생 가능성이 있는 코드>  
+except:  
+ <예외가 발생했을때 실행할 코드>  
+{% endcodeblock %}
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+try:  
+ a = int(input("정수입력 >"))  
+ print(a*a*3.14)  
+except:  
+ print("값을 잘못 입력하였습니다")  
+
+try:  
+ a = int(input("정수입력 >"))  
+ print(a*a*3.14)  
+except:  
+ pass # 간단하게 pass를 넣어 예외처리를 할 수도 있습니다.  
+
+# try는 예외 가능성이 있는 코드를  
+# else는 예외 발생이 일어나지 않았을 경우 실행할 코드를 넣습니다.  
+try:  
+ a = int(input("정수입력 >"))  
+except:  
+ print("값을 잘못 입력하였습니다")  
+else:  
+ print(a*a*3.14)  
+
+# finally는 예외 여부와 상관없이 무조건 실행합니다.  
+try:  
+ a = int(input("정수입력 >"))  
+except:  
+ print("값을 잘못 입력하였습니다")  
+else:  
+ print(a*a*3.14)  
+finally:  
+ print("무슨값을 넣든 무조건 실행합니다.")  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+정수입력 >hi  
+값을 잘못 입력하였습니다  
+#pass는 아무일도 일어나지 않음  
+#try except else  
+정수입력 >2  
+12.56  
+#try except else finally  
+정수입력 >f  
+값을 잘못 입력하였습니다  
+무슨값을 넣든 무조건 실행합니다.  
+{% endcodeblock %}
+
+
+
+정리해보면  
+
+{% codeblock %}
+try:  
+ <예외 발생 가능성이 있는 코드>  
+except:  
+ <예외가 발생했을때 실행할 코드>  
+else:  
+ <예외가 발생하지 않았을때 실행할 코드>  
+finally:  
+ <무조건 실행할 코드>  
+{% endcodeblock %}
+
+
+
+* * *
+
+### [](#예외-객체 "예외 객체")예외 객체
+
+개발자의 관점에서 예외가 발생했을때 어떤 예외가 발생하였는지  
+자세하게 알고 싶을겁니다. 그런한 예외가 어떤 종류의 예외였는지는  
+예외 객체를 통해 알 수 있습니다.
+
+#### [](#기본형태-1 "기본형태")기본형태
+
+{% codeblock %}
+try:  
+ <예외 발생 가능성이 있는 코드>  
+except <예외의 종류> as <예외 객체를 활용할 변수 이름>:  
+ <예외가 발생했을때 실행할 코드>  
+{% endcodeblock %}
+
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+try:  
+ a = int(input("정수입력 >"))  
+ print(a*a*3.14)  
+except Exception as exception:  
+ print(type(exception))  
+ print(exception)  
+{% endcodeblock %}
+
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+정수입력 >a  
+<class 'ValueError'>  
+invalid literal for int() with base 10: 'a'  
+{% endcodeblock %}
+
+
+
+#### [](#예외-구분 "예외 구분")예외 구분
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+list_a = [12,51,44,96,100]  
+try:  
+ a = int(input("리스트 인덱스 입력>"))  
+ print(list_a[a])  
+except ValueError:  
+ print("0~4의 정수값을 입력하세요.")  
+except IndexError:   
+ print("인덱스가 존재하지 않습니다.")  
+{% endcodeblock %}
+
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+리스트 인덱스 입력>d  
+0~4의 정수값을 입력하세요.  
+
+리스트 인덱스 입력>5  
+인덱스가 존재하지 않습니다.
+{% endcodeblock %}
+
+
+
+#### [](#강제-예외 "강제 예외")강제 예외
+
+아직 구현되지 않은 소스 부분에 `raise` 강제 예외처리를 할 수 있습니다.
+
+##### [](#Example-3 "Example")Example
+
+{% codeblock lang:python %}
+a = int(input())  
+if a > 0:  
+ raise NotImplementedError  
+else:  
+ raise NotImplementedError  
+{% endcodeblock %}
+
+
+
+##### [](#Result-3 "Result")Result
+
+{% codeblock %}
+5  
+NotImplementedError  
+{% endcodeblock %}
+
+
+##### [](#마치며… "마치며…")마치며…
+
+책에서 조금 더 깊게 다루고 있는 부분은 제외하고 있습니다.  
+파이썬 기본이니까 기본만 해야죠^^;  
+파이썬 웹사이트 구축, 머신러닝 같은걸 하게 되면 심화된 파이썬을  
+경험할 수 있지 않을까 생각됩니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

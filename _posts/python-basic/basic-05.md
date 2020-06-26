@@ -1,0 +1,113 @@
+---
+title: "[python-기초]05.변수와 형변환"
+date: 2019-03-26 14:06:18
+categories:
+- Python
+- 기초
+---
+#### [](#파이썬-변수 "파이썬 변수")파이썬 변수
+
+##### [](#표현법 "표현법")`표현법`
+
+*   <변수이름> = 값
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+pi = 3.141592  
+print(pi)  
+{% endcodeblock %}
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+3.141592  
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#복합-대입-연산자 "복합 대입 연산자")복합 대입 연산자
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+num = 100  
+num += 20 #num = num + 20  
+print(num)  
+num -= 10 #num = num - 10  
+print(num)  
+num *= 2  #num = num * 2  
+print(num)  
+num /= 2  #num = num / 2  
+print(num)  
+num %= 10 #num = num % 2  
+print(num)  
+num **= 2 #num = num ** 2  
+print(num)  
+text = "안녕"  
+text += "하세요"  
+print(text)  
+text *= 2  
+print(text)
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+120  
+110  
+220  
+110.0  
+0.0  
+0.0  
+안녕하세요  
+안녕하세요안녕하세요  
+{% endcodeblock %}
+
+
+* * *
+
+#### [](#형변환-문자는-숫자로-숫자는-문자로-변경 "형변환 - 문자는 숫자로, 숫자는 문자로 변경")`형변환` - 문자는 숫자로, 숫자는 문자로 변경
+
+##### [](#Example-2 "Example")Example
+
+{% codeblock lang:python %}
+num = 10  
+print(type(num))  
+str(num)  
+print(type(num))  
+float(num)  
+print(type(num))  
+float(num)  
+print(type(num))  
+string = "20.5"  
+float(string)  
+print(type(string))  
+int(string)  
+print(type(string))  
+{% endcodeblock %}
+
+
+##### [](#Result-2 "Result")Result
+
+{% codeblock %}
+<class 'int'>  
+<class 'int'>  
+<class 'int'> #정수형은 float로 지정해도 강제로 형변환은 안되네요.  
+<class 'str'>  
+ValueError: invalid literal for int() with base 10: '20.5'  
+# 20.5는 int 형이 될 수 없으므로 Error가 발생합니다.
+{% endcodeblock %}
+
+
+
+##### [](#마치며… "마치며…")마치며…
+
+다음에는 `출력(print())`이 있다면 `입력(input)`도 있을테니  
+입력과 format() 함수에 대해 알아보도록 하겠습니다.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

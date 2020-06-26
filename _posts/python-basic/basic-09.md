@@ -1,0 +1,99 @@
+---
+title: "[python-기초]09.if 조건문"
+date: 2019-03-26 14:12:18
+categories:
+- Python
+- 기초
+---
+#### [](#if-기본-형태 "if 기본 형태")if 기본 형태
+
+{% codeblock %}
+if <조건>:  
+ <참일때 실행할 문장>
+{% endcodeblock %}
+
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:python %}
+num = input()  
+num = int(num)  
+# 양수 음수 판별  
+if num > 0 :  
+ print("양수")  
+if num < 0 :  
+ print("음수")  
+if num == 0 :  
+ print("0")  
+# 짝수 홀수 판별  
+if num%2\==0:  
+ print("짝수")  
+if num%2\==1:  
+ print("홀수")  
+{% endcodeblock %}
+
+
+
+##### [](#Result "Result")Result
+
+{% codeblock %}
+# 5입력  
+양수  
+홀수  
+# 0 입력  
+0  
+짝수  
+{% endcodeblock %}
+
+
+
+* * *
+
+#### [](#if-elif-else "if ~ elif ~ else")if ~ elif ~ else
+
+단순히 if문 만으로는 참,거짓 2가지로 밖에 판별할 수 없지만  
+3가지 이상의 조건을 사용해야 할 때도 있습니다.  
+그럴때 `elif` 와 `else`를 사용합니다.
+
+##### [](#Example-1 "Example")Example
+
+{% codeblock lang:python %}
+point = input()  
+point = int(point)  
+
+if point >= 90 :  
+ print("A")  
+elif 90 > point >= 80:  
+ print("B")  
+elif 80 > point >= 70:  
+ print("C")  
+elif 70 > point >= 60:  
+ print("D")  
+else:  
+ print("F")  
+
+# 추가 TIP  
+if 0 :  
+ print("참일까 거짓일까")  
+else:  
+ print("거짓일까 참일까")  
+{% endcodeblock %}
+
+
+##### [](#Result-1 "Result")Result
+
+{% codeblock %}
+# 85입력  
+B  
+거짓일까 참일까 # 0이나 빈값이 들어가면 False로 인식한다고 합니다.  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+다음 포스팅에서는 리스트와 딕셔너리에 대해 알아보겠습니다.  
+다른 언어에서는 배열 또는 MAP이란 표현도 쓰구요.  
+javascript의 json과는 비슷한 형태인거 같아요.
+
+{% blockquote Hello Coding 파이썬, 윤인성 %}
+해당 포스팅은 다음의 도서을 참고하여 작성되었습니다.
+{% endblockquote %}

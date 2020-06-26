@@ -1,0 +1,119 @@
+---
+title: "[jqxgrid]3.Aggregates - 집계데이터(합계,평균,최대,최소) 구하기(자바스크립트 프레임워크,상용 그리드)"
+date: 2019-03-26 13:18:18
+categories:
+- JS
+- jqxgrid
+---
+
+### [](#Jqxgrid-Aggregates "Jqxgrid Aggregates")Jqxgrid Aggregates
+
+jqxgrid는 단순 합계,평균은 status bar에서 간단하게 표시할 수 있고  
+여러 조건들을 적용하여 custom도 가능하기 때문에  
+다양하게 활용할 수 있습니다.  
+columns에 aggregates 속성을 추가하여 함수형태로 구현하여  
+return 값을 지정해주면 됩니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:javascript %}
+$(document).ready(function () {  
+
+var data = '\[{  
+ "name": "홍길동",  
+ "age": 23,  
+ "address": "서울 강남구",  
+ "phone": "010-1234-XXXX",  
+ "birthday": "1990-02-05",  
+ "allowance": 5000  
+ }\]';  
+ // datafields , columns 데이터를 정리하여 라인 수를 줄였습니다.  
+ var source = {  
+ datatype: "json",  
+ datafields:[  
+ {name: 'name',type: 'string'},  
+ {name: 'age',type: 'int'},  
+ {name: 'address',type: 'string'},  
+ {name: 'phone',type: 'string'},  
+ {name: 'birthday',type: 'date'},  
+ {name: 'allowance',type: 'number'}  
+],  
+ localdata: data  
+ };  
+ var dataAdapter = new $.jqx.dataAdapter(source);  
+ $("#jqxgrid").jqxGrid({  
+ width: '100%',  
+ height: '300',  
+ source: dataAdapter,  
+ showstatusbar: true, //aggregates를 이용하기 위해서 showstatusbar를 표시합니다.  
+ statusbarheight: 50,  
+ showaggregates: true, //aggregates를 사용하도록 속성값을 통해 명시하여야합니다.  
+ columnsresize: true,  
+ theme: 'energyblue',  
+ columns:[  
+ {text: '이름',datafield: 'name',width: "10%",  
+ aggregates:['count', // row의 갯수를 표시합니다.  
+ { '김씨':  
+ function (aggregatedValue, currentValue) {  
+ // 함수형태로 구현하여 김씨일 경우에만 카운드를 증가시킵니다.  
+ if (currentValue.substring( 0, 1 ) == "김") {  
+ return aggregatedValue + 1;  
+ }  
+ return aggregatedValue;  
+ }  
+ }  
+]  
+ },  
+ {text: '나이',datafield: 'age',width: "10%",  
+ aggregates:['min', 'max'\], //최대,최소를 표현합니다.  
+ aggregatesrenderer: function (aggregates) {  
+ var renderstring = "";  
+ //aggregates를 rendering(Custom 형태)하는데  
+ //each문을 통해 min, max 각각  rendering 합니다.  
+ $.each(aggregates, function (key, value) {  
+ var name = key == 'min' ? '최소' : '최대';  
+ renderstring += '<div style="position: relative; margin: 4px; overflow: hidden;">' + name + ': ' + value +'</div>';  
+ });  
+ return renderstring;  
+ }  
+ },  
+ {text: '주소',datafield: 'address',width: "20%"},  
+ {text: '전화번호',datafield: 'phone',width: "20%"},  
+ {text: '생일',datafield: 'birthday',cellsformat: "yyyy-MM-dd",width: "20%"},  
+ {text: '용돈',datafield: 'allowance',cellsformat : 'd',cellsalign: 'right',width: "20%",  
+ aggregates:['sum','avg'\], // 합계와 평균을 구합니다.  
+ aggregatesrenderer: function (aggregates) {  
+ var renderstring = "";  
+ var name = "";  
+ var total = 0;  
+ $.each(aggregates, function (key, value) {  
+ if(key=="avg"){  
+ name = "평균";  
+ //먼저 replace를 통해 콤마를 제거하고 Float형으로 변환 후 Round로 소수점 반올림 합니다.  
+ total = Math.round(parseFloat(aggregates.avg.replace(/,/g,"")));  
+ }else if(key=="sum"){  
+ name = "합계";  
+ total = Math.round(parseFloat(aggregates.sum.replace(/,/g,"")));  
+ }  
+ // 그리고 나온 결과를 다시 소수점 표기 형태로 바꿔줍니다.  
+ total =  Number(total).toLocaleString('en');  
+ //Custom한 태그를 renderstring 변수에 넣어 리턴합니다.  
+ renderstring += '<div style="float: right; margin: 4px; overflow: hidden;"> '+name+': '+total+'</div>';  
+
+ });  
+ return renderstring;  
+ }  
+ }  
+]  
+ });  
+});  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+이처럼 집계 데이터의 custom 범위도 꽤 넓은 편이라 활용도가 매우 높습니다.  
+기업에서 사용할때는 매출합계, 손익계산, 구성비율, 최대, 최소등을 활용할 수 있기에  
+상당히 유용한 기능이라고 생각됩니다.
+
+다음시간에는 Columns의 숨기기(hide),보이기(show) 기능을 활용하여  
+필요한 열만 볼 수 있도록 하는 기능을 알아보도록 하겠습니다.

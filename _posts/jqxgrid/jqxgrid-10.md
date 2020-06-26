@@ -1,0 +1,123 @@
+---
+title: "[jqxgrid]10.PHP로 데이터 가져오기 (자바스크립트 프레임워크,상용 그리드)"
+date: 2019-03-26 13:25:18
+categories:
+- JS
+- jqxgrid
+---
+
+### [](#Jqxgrid-PHP로-Data-가져오기 "Jqxgrid PHP로 Data 가져오기")Jqxgrid PHP로 Data 가져오기
+
+실무에서 jqxgrid를 1회성 데이터를 주고받는 경우로  
+사용하는 일은 드물겁니다.  
+DB와 연동해서 쓰기 마련인데요. PHP와 연동하여 쓰는방법을  
+jsfiddle로 보여드리려고 getData.php 라는 파일을 만들었는데  
+SSL 인증서가 적용되어 있지 앟으면 jsfiddle에서 읽어오질  
+않아서 임시로 무료 웹사이트 호스팅을 받아서 그 위에  
+PHP 파일을 생성하였습니다.  
+덕분에 속도는 엄청나게 느리네요…
+
+##### [](#Example "Example")Example
+
+###### [](#PHP "PHP")PHP
+
+{% codeblock lang:php %}
+<?php  
+//DB 연결  
+include "db.php";  
+dbcon();  
+
+// jqxgrid_test 테이블 조회  
+$QUERY = "select name,age,phone,address,birthday,allowance,gender  from jqxgrid_test";  
+$QUERY_EC =  mysqli_query($con,$QUERY) ;  
+while($QUERY_RS= mysqli_fetch_array($QUERY_EC))  
+{  
+ // $datas[] 라는 배열을 선언하여 json 형태로 저장  
+ // JS파일에 datafields 에서 name으로 설정한 것들과  
+ // Keyname을 동일하게 해주어야 합니다.  
+ $datas[] = array(  
+ 'name' => trim($QUERY_RS['name']),  
+ 'age' => trim($QUERY_RS['age']),  
+ 'phone' => trim($QUERY_RS['phone']),  
+ 'address' => trim($QUERY_RS['address']),  
+ 'birthday' => trim($QUERY_RS['birthday']),  
+ 'allowance' => trim($QUERY_RS['allowance']),  
+ 'gender' => trim($QUERY_RS['gender'])  
+ );  
+
+}  
+//json으로 encoding하여 출력  
+echo json_encode($datas);  
+mysqli_free_result($QUERY_EC);  
+mysqli_close($con) ;  
+?>  
+{% endcodeblock %}
+
+###### [](#javascript "javascript")javascript
+
+{% codeblock lang:javascript %}
+
+$(document).ready(function () {  
+ var source = {  
+ datatype: "json",  
+ datafields: [  
+ {name: 'name',type: 'string'},  
+ {name: 'age',type: 'int'},  
+ {name: 'address',type: 'string'},  
+ {name: 'phone',type: 'string'},  
+ {name: 'birthday',type: 'date'},  
+ {name: 'allowance',type: 'number'},  
+ {name: 'gender',type: 'string'}  
+ ],  
+ //데이터를 가져오고자 하는 url  
+ url: 'https://cod9edu.000webhostapp.com/jqxgrid_test/getData.php',  
+
+ cache: false  
+ };  
+ var dataAdapter = new $.jqx.dataAdapter(source);  
+
+
+ $("#jqxgrid").jqxGrid({  
+ width: '100%',  
+ height: '300',  
+ source: dataAdapter,  
+ sortable: true,  
+ filterable: true,  
+ editable: true,  
+ showstatusbar: true,  
+ columnsresize: true,  
+ theme: 'energyblue',  
+ columns: [  
+ {text: '이름',datafield: 'name',width: "10%", align:"center"},  
+ {text: '나이',datafield: 'age',width: "10%", align:"center",validation: function (cell, value) {  
+ if (value == "") return true;  
+ if (value < 18) {  
+ return { result: false, message: "18세 미만은 부모님의 동의가 필요합니다." };  
+ }  
+ return true;  
+ }},  
+ {text: '주소',datafield: 'address',width: "10%", align:"center"},  
+ {text: '전화번호',datafield: 'phone',width: "20%", align:"center"},  
+ {text: '생일',datafield: 'birthday',cellsformat: "yyyy-MM-dd",width: "20%", align:"center",columntype: 'datetimeinput'},  
+ {text: '용돈',datafield: 'allowance',cellsformat : 'd',cellsalign: 'right',width: "20%", align:"center"},  
+ {text: '성별',datafield: 'gender',width: "10%", align:"center", columntype: 'dropdownlist'}  
+ ]  
+ });  
+
+});  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+막상 또 구현을 하고나니 별게 없네요.  
+결국 json 형태로 데이터를 뿌려주기만 하면 jqxgrid가 알아서 척하고  
+받아와 형태에 맞게 데이터를 출력합니다.
+
+일단 jqxgrid에 대한 정식 포스팅은 여기까지 할까 합니다.  
+지금은 방문자도 별로 없고, 혹시 만약 보시다가 궁금한 사항이나  
+문의 있으시면 댓글로 남겨주시면 성심성의껏 답변 드리도록 하겠습니다.
+
+다음번엔 제가 기존에 알고 있는 지식이 아닌 새로 스터디한 내용을  
+기록으로 남겨볼까 합니다.  
+파이썬, 딥러닝 쪽이 될 것 같습니다.  
+감사합니다.

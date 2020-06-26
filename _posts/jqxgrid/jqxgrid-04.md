@@ -1,0 +1,98 @@
+---
+title: "[jqxgrid]4.Column 숨기기/보이기(자바스크립트 프레임워크,상용 그리드)"
+date: 2019-03-26 13:19:18
+categories:
+- JS
+- jqxgrid
+---
+
+### [](#Jqxgrid-Column-숨기기-보이기-hide-show "Jqxgrid Column 숨기기/보이기(hide/show)")Jqxgrid Column 숨기기/보이기(hide/show)
+
+만약 grid에서 보여줘야 하는 Columns이 너무 많을 경우, 어떻게 해야될까요?  
+혹은 업무에 따라 직급에 따라 필요한 Column 정보들이 다른 경우엔  
+어떻게 해야될까요?  
+jqxgrid 에서는 원하는 컬럼만 보여주고 숨길 수 있는 기능들을 가지고 있습니다.  
+조금만 응용한다면 사용자 권한에 따라서 보여지는 데이터도 달리 할 수 있을 겁니다.
+
+##### [](#Example "Example")Example
+
+{% codeblock lang:javascript %}
+$(document).ready(function () {  
+var data = '[{ "name": "홍길동", "age": "23", "address": "서울 강남구","phone": "010-1234-XXXX", "birthday": "1990-02-05","allowance": 5000}]';  
+
+ var source = {  
+ datatype: "json",  
+ datafields: [  
+ {name: 'name',type: 'string'},  
+ {name: 'age',type: 'int'},  
+ {name: 'address',type: 'string'},  
+ {name: 'phone',type: 'string'},  
+ {name: 'birthday',type: 'date'},  
+ {name: 'allowance',type: 'number'}  
+ ],  
+ localdata: data  
+ };  
+ var dataAdapter = new $.jqx.dataAdapter(source);  
+ $("#jqxgrid").jqxGrid({  
+ width: '100%',  
+ height: '300',  
+ source: dataAdapter,  
+ sortable: true,  
+ filterable: true,  
+ showstatusbar: true,  
+ columnsresize: true,  
+ theme: 'energyblue',  
+ columns: [  
+ {text: '이름',datafield: 'name',width: "10%"},  
+ {text: '나이',datafield: 'age',width: "10%"},  
+ {text: '주소',datafield: 'address',width: "20%"},  
+ {text: '전화번호',datafield: 'phone',width: "20%"},  
+ {text: '생일',datafield: 'birthday',cellsformat: "yyyy-MM-dd",width: "20%"},  
+ {text: '용돈',datafield: 'allowance',cellsformat : 'd',cellsalign: 'right',width: "20%"}  
+ ]  
+ });  
+
+ // JSON 형태로 listSource를 만들어 보이기/숨기기 기능을 활용할 columns을 선택합니다.  
+ // 일부 columns만 적용할 수도 있습니다.  
+ var listSource = [  
+ { label: '이름', value: 'name', checked: true },  
+ { label: '나이', value: 'age', checked: true },  
+ { label: '주소', value: 'address', checked: true },  
+ { label: '전화번호', value: 'phone', checked: true },  
+ { label: '생일', value: 'birthday', checked: true},  
+ { label: '용돈', value: 'allowance', checked: true}  
+ ];  
+ // html 파일에  id가 jqxlistbox인 div 태그 하나를 추가하였습니다.  
+ // jqxListBox는 jqxwidget에서 지원하는 또 다른 widget 입니다.  
+ $("#jqxlistbox").jqxListBox({ source: listSource, height: 200,  checkboxes: true });  
+ //jqxlistbox 체크박스 값이 변경되면 아래와 같은 동작이 일어납니다.  
+ $("#jqxlistbox").on('checkChange', function (event) {  
+ $("#jqxgrid").jqxGrid('beginupdate');  
+ if (event.args.checked) {  
+ // 이벤트를 일으킨 항목이 체크가 되어있으면 showcolumn을 통해 column을 표시하고  
+ $("#jqxgrid").jqxGrid('showcolumn', event.args.value);  
+ }  
+ else {  
+ // 그렇지 않으면 컬럼을 숨깁니다.  
+ $("#jqxgrid").jqxGrid('hidecolumn', event.args.value);  
+ }  
+ $("#jqxgrid").jqxGrid('endupdate');  
+ });  
+
+});  
+{% endcodeblock %}
+
+##### [](#마치며… "마치며…")마치며…
+
+jqxgrid를 보조할 수 있는 다른 widget을 활용하여 컬럼 숨기기/보이기  
+기능을 이용해 보았습니다.
+
+jqxwidget의 리스트와 데모 소스는 아래 링크를 통해 확인하실 수 있습니다.  
+[JqxWidget List](https://www.jqwidgets.com/jquery-widgets-demo/)
+
+지금까지의 기능들만 활용해도 충분히 훌륭한 grid로써 이용할 수 있을거란  
+생각이 듭니다. 이런것들을 쌩코딩으로 구현한다면 어마무시한 작업공수가  
+들어가겠죠? 생각만해도 ㅎㄷㄷ 하네요.
+
+다음 시간에는 Grouping을 하고 그룹별 집계데이터를 Custom하는 방법을  
+알아보도록 하겠습니다.
