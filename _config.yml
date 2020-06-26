@@ -2,11 +2,11 @@ title: COD9
 description: IT Tech Blog
 author: COD9
 logo: /hcz-jekyll-blog/static/img/avatar.png
-github: https://codinine.github.io/
+github: https://codinine.github.io
 about: IT Tech Blog
 
-baseurl: "https://codinine.github.io/"
-url: "https://codinine.github.io/"
+baseurl: "https://codinine.github.io"
+url: "https://codinine.github.io"
 
 allowsearch: false
 
