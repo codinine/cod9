@@ -6,6 +6,12 @@
     "layout": "post"
   },
   {
+    "text": "Post",
+    "url": "/",
+    "icon": "fa-mail-bulk"
+    "layout": "post"
+  },
+  {
     "text": "About",
     "url": "/about/",
     "icon": "fa-comments"
