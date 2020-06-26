@@ -1,12 +1,12 @@
-title: John Smith
-description: My Personal Blog
-author: John Smith
+title: COD9
+description: IT Tech Blog
+author: COD9
 logo: /hcz-jekyll-blog/static/img/avatar.png
-github: https://github.com/codeasashu
-about: Freelance developer
+github: https://codinine.github.io/
+about: IT Tech Blog
 
-baseurl: "https://codeasashu.github.io/hcz-jekyll-blog"
-url: "https://codeasashu.github.io/hcz-jekyll-blog"
+baseurl: "https://codinine.github.io/"
+url: "https://codinine.github.io/"
 
 allowsearch: true
 
