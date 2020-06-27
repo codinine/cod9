@@ -1,6 +1,6 @@
 ---
 layout: posts_by_category
 categories: algorithm
-title: Algorithm
+title: algorithm
 permalink: /category/algorithm
 ---

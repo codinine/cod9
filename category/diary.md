@@ -1,6 +1,6 @@
 ---
 layout: posts_by_category
 categories: diary
-title: Diary
+title: diary
 permalink: /category/diary
 ---
